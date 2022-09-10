@@ -11,97 +11,89 @@
 @using Microsoft.AspNetCore.Components.Web
 @inherits BaseComponent
 
-<div>
-    <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
+<TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
-    @if (this.GroupWindowStatus == GroupWindowStatus.Close)
-    {
-        <DataGridControl TItem="AccountModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.B004ViewModel.SelectResultModel" PagingEnabled="true"
-                     TableClass="table-hover"
-                     MovePage="this.Search"
-                     RowModify="this.RowModify">
-            <SearchInputControl>
-                <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.B004ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
-            </SearchInputControl>
-            <SearchButtonControl>
-                <button class="btn btn-outline-primary btn-rounded-end" type="button" @onclick="(() => this.OnSearch())">
-                    <span class="oi oi-magnifying-glass" />
-                </button>
-            </SearchButtonControl>
-        </DataGridControl>
-    }
-    else
-    {
-        <GroupControl TItem="AccountModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.RESPONSIBILITY_ID))"
-                  Close="this.Close" GroupWindowStatus="this.GroupWindowStatus">
-            <Control>
-                <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
-                    <DataAnnotationsValidator />
+<DataGridControl TItem="AccountModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.B004ViewModel.SelectResultModel" PagingEnabled="true"
+                 TableClass="table-hover"
+                 MovePage="this.Search"
+                 RowModify="this.RowModify">
+    <SearchInputControl>
+        <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.B004ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
+    </SearchInputControl>
+    <SearchButtonControl>
+        <button class="btn btn-outline-primary btn-rounded-end" type="button" @onclick="(() => this.OnSearch())">
+            <span class="oi oi-magnifying-glass" />
+        </button>
+    </SearchButtonControl>
+</DataGridControl>
 
-                    <FieldControl Label="User ID" Value="this.SelectItem.USER_ID" CssClassDiv="pt-2 pb-1"></FieldControl>
-                    <div class="row">
-                        <FieldControl Label="Email" CssClassDiv="py-2 col-md-6">
-                            <Control>
-                                <InputText id="email" class="form-control" placeholder="Email" @bind-Value="this.SelectItem.EMAIL" />
-                                <ValidationMessage For="@(()=>this.SelectItem.EMAIL)" />
-                            </Control>
-                        </FieldControl>
-                        <FieldControl Label="Nickname" CssClassDiv="py-2 col-md-6">
-                            <Control>
-                                <InputText id="nickname" class="form-control" placeholder="Nickname" @bind-Value="this.SelectItem.NICKNAME" />
-                                <ValidationMessage For="@(()=>this.SelectItem.NICKNAME)" />
-                            </Control>
-                        </FieldControl>
+<ModalControl TItem="AccountModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.USER_ID))">
+    <Control>
+        <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
+            <DataAnnotationsValidator />
+
+            <FieldControl Label="User ID" Value="this.SelectItem.USER_ID" CssClassDiv="pt-2 pb-1"></FieldControl>
+            <div class="row">
+                <FieldControl Label="Email" CssClassDiv="py-2 col-md-6">
+                    <Control>
+                        <InputText id="email" class="form-control" placeholder="Email" @bind-Value="this.SelectItem.EMAIL" />
+                        <ValidationMessage For="@(()=>this.SelectItem.EMAIL)" />
+                    </Control>
+                </FieldControl>
+                <FieldControl Label="Nickname" CssClassDiv="py-2 col-md-6">
+                    <Control>
+                        <InputText id="nickname" class="form-control" placeholder="Nickname" @bind-Value="this.SelectItem.NICKNAME" />
+                        <ValidationMessage For="@(()=>this.SelectItem.NICKNAME)" />
+                    </Control>
+                </FieldControl>
+            </div>
+            <div class="row">
+                <FieldControl Label="Fullname" CssClassDiv="py-2 col-md-6">
+                    <Control>
+                        <InputText id="fullname" class="form-control" placeholder="Fullname" @bind-Value="this.SelectItem.FULLNAME" />
+                        <ValidationMessage For="@(()=>this.SelectItem.FULLNAME)" />
+                    </Control>
+                </FieldControl>
+                <FieldControl Label="Phone number" CssClassDiv="py-2 col-md-6">
+                    <Control>
+                        <InputText id="phonenumber" class="form-control" placeholder="Phone number" @bind-Value="this.SelectItem.PHONENUMBER" />
+                        <ValidationMessage For="@(()=>this.SelectItem.PHONENUMBER)" />
+                    </Control>
+                </FieldControl>
+            </div>
+
+            <div class="row">
+                <FieldControl Label="Permissions" CssClassDiv="py-2 col-md-6">
+                    <Control>
+                        <InputSelect class="form-select" @bind-Value="@this.SelectItem.RESPONSIBILITY_ID">
+                            <DictionaryControl Code="METAFRM_MGMT.RESPONSIBILITY" Items="this.ResponsibilityItems" ResultEvent="this.OnResultEventResponsibilityItems" AppendEmptyItem="true">
+                                <Control>
+                                    @if (this.ResponsibilityItems != null)
+                                        foreach (var item in this.ResponsibilityItems)
+                                        {
+                                            <option Value="@(item.Int("RESPONSIBILITY_ID"))">@item.String("NAME")</option>
+                                        }
+                                </Control>
+                            </DictionaryControl>
+                        </InputSelect>
+                        <ValidationMessage For="@(()=>this.SelectItem.RESPONSIBILITY_ID)" />
+                    </Control>
+                </FieldControl>
+            </div>
+
+            <FieldControl Label="Inactive" CssClassControl="row">
+                <Control>
+                    <div class="py-1 col-md-3">
+                        <InputDate id="inactivedate" class="form-control" placeholder="Inactive Date" Type="InputDateType.Date" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="yyyy-MM-dd" />
                     </div>
-                    <div class="row">
-                        <FieldControl Label="Fullname" CssClassDiv="py-2 col-md-6">
-                            <Control>
-                                <InputText id="fullname" class="form-control" placeholder="Fullname" @bind-Value="this.SelectItem.FULLNAME" />
-                                <ValidationMessage For="@(()=>this.SelectItem.FULLNAME)" />
-                            </Control>
-                        </FieldControl>
-                        <FieldControl Label="Phone number" CssClassDiv="py-2 col-md-6">
-                            <Control>
-                                <InputText id="phonenumber" class="form-control" placeholder="Phone number" @bind-Value="this.SelectItem.PHONENUMBER" />
-                                <ValidationMessage For="@(()=>this.SelectItem.PHONENUMBER)" />
-                            </Control>
-                        </FieldControl>
+                    <div class="py-1 col-md-3">
+                        <InputDate id="inactivetime" class="form-control" placeholder="Inactive Time" Type="InputDateType.Time" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="HH:mm" />
                     </div>
-                    
-                    <div class="row">
-                        <FieldControl Label="Permissions" CssClassDiv="py-2 col-md-6">
-                        <Control>
-                            <InputSelect class="form-select" @bind-Value="@this.SelectItem.RESPONSIBILITY_ID">
-                                <DictionaryControl Code="METAFRM_MGMT.RESPONSIBILITY" Items="this.ResponsibilityItems" ResultEvent="this.OnResultEventResponsibilityItems" AppendEmptyItem="true">
-                                    <Control>
-                                        @if (this.ResponsibilityItems != null)
-                                            foreach (var item in this.ResponsibilityItems)
-                                            {
-                                                <option Value="@(item.Int("RESPONSIBILITY_ID"))">@item.String("NAME")</option>
-                                            }
-                                    </Control>
-                                </DictionaryControl>
-                            </InputSelect>
-                            <ValidationMessage For="@(()=>this.SelectItem.RESPONSIBILITY_ID)" />
-                        </Control>
-                        </FieldControl>
-                    </div>
+                    <ValidationMessage For="@(()=>this.SelectItem.INACTIVE_DATE)" />
+                </Control>
+            </FieldControl>
 
-                    <FieldControl Label="Inactive" CssClassControl="row">
-                        <Control>
-                            <div class="py-1 col-md-3">
-                                <InputDate id="inactivedate" class="form-control" placeholder="Inactive Date" Type="InputDateType.Date" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="yyyy-MM-dd" />
-                            </div>
-                            <div class="py-1 col-md-3">
-                                <InputDate id="inactivetime" class="form-control" placeholder="Inactive Time" Type="InputDateType.Time" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="HH:mm" />
-                            </div>
-                            <ValidationMessage For="@(()=>this.SelectItem.INACTIVE_DATE)" />
-                        </Control>
-                    </FieldControl>
-
-                    <CommandControl TItem="AccountModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.USER_ID))" SaveIsSubmit="true" />
-                </EditForm>
-            </Control>
-        </GroupControl>
-    }
-</div>
+            <CommandControl TItem="AccountModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.USER_ID))" SaveIsSubmit="true" />
+        </EditForm>
+    </Control>
+</ModalControl>

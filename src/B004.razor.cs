@@ -24,8 +24,6 @@ namespace MetaFrm.Management.Razor
         internal IEnumerable<Data.DataRow>? ResponsibilityItems;
 
         internal AccountModel SelectItem = new();
-
-        internal GroupWindowStatus GroupWindowStatus = GroupWindowStatus.Close;
         #endregion
 
 
@@ -239,13 +237,6 @@ namespace MetaFrm.Management.Razor
                 RESPONSIBILITY_NAME = item.RESPONSIBILITY_NAME,
                 INACTIVE_DATE = item.INACTIVE_DATE,
             };
-
-            this.GroupWindowStatus = GroupWindowStatus.Maximize;
-        }
-
-        private void Close()
-        {
-            this.GroupWindowStatus = GroupWindowStatus.Close;
         }
         #endregion
     }
