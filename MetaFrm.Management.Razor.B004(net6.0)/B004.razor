@@ -1,4 +1,5 @@
 ﻿@using MetaFrm.Control
+@using MetaFrm.Database
 @using MetaFrm.Management.Razor.Models
 @using MetaFrm.Razor.Command
 @using MetaFrm.Razor.DataGrid
@@ -13,10 +14,17 @@
 
 <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
-<DataGridControl TItem="AccountModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.B004ViewModel.SelectResultModel" PagingEnabled="true"
+<DataGridControl TItem="AccountModel" @ref="this.DataGridControl" DataItems="this.B004ViewModel.SelectResultModel" PagingEnabled="true"
                  TableClass="table-hover"
                  MovePage="this.Search"
-                 RowModify="this.RowModify">
+                 RowModify="this.RowModify"
+                 Columns="@(new ColumnDefinitions[] {
+                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(AccountModel.NICKNAME), "Nickname"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(AccountModel.FULLNAME), "Fullname", "d-none d-md-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(AccountModel.PHONENUMBER), "Phone number", "d-none d-lg-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(AccountModel.EMAIL), "Email"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(AccountModel.RESPONSIBILITY_NAME), "Permissions", "d-none d-sm-table-cell"),
+                    new(DbType.DateTime, SortDirection.Normal, Alignment.Center, nameof(AccountModel.INACTIVE_DATE), "Inactive", "d-none d-xl-table-cell", "", "", "yyyy-MM-dd HH:mm")})">
     <SearchInputControl>
         <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.B004ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
     </SearchInputControl>
