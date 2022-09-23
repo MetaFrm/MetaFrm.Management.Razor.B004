@@ -9,7 +9,6 @@
 <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
 <DataGridControl TItem="AccountModel" @ref="this.DataGridControl" DataItems="this.B004ViewModel.SelectResultModel" PagingEnabled="true"
-                 TableClass="table-hover"
                  MovePage="this.Search"
                  RowModify="this.RowModify"
                  Columns="@(new ColumnDefinitions[] {
@@ -29,20 +28,20 @@
     </SearchButtonControl>
 </DataGridControl>
 
-<ModalControl TItem="AccountModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.USER_ID))">
+<ModalControl TItem="AccountModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.USER_ID))" HeaderText="@(this.SelectItem == null || this.SelectItem.USER_ID == null ? "New" : "Edit")">
     <Control>
         <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
             <DataAnnotationsValidator />
 
-            <FieldControl Label="User ID" Value="this.SelectItem.USER_ID" CssClassDiv="pt-2 pb-1"></FieldControl>
+            <FieldControl Label="User ID" Value="this.SelectItem.USER_ID"></FieldControl>
             <div class="row">
-                <FieldControl Label="Email" CssClassDiv="py-2 col-md-6">
+                <FieldControl Label="Email">
                     <Control>
                         <InputText id="email" class="form-control" placeholder="Email" @bind-Value="this.SelectItem.EMAIL" />
                         <ValidationMessage For="@(()=>this.SelectItem.EMAIL)" />
                     </Control>
                 </FieldControl>
-                <FieldControl Label="Nickname" CssClassDiv="py-2 col-md-6">
+                <FieldControl Label="Nickname">
                     <Control>
                         <InputText id="nickname" class="form-control" placeholder="Nickname" @bind-Value="this.SelectItem.NICKNAME" />
                         <ValidationMessage For="@(()=>this.SelectItem.NICKNAME)" />
@@ -50,13 +49,13 @@
                 </FieldControl>
             </div>
             <div class="row">
-                <FieldControl Label="Fullname" CssClassDiv="py-2 col-md-6">
+                <FieldControl Label="Fullname">
                     <Control>
                         <InputText id="fullname" class="form-control" placeholder="Fullname" @bind-Value="this.SelectItem.FULLNAME" />
                         <ValidationMessage For="@(()=>this.SelectItem.FULLNAME)" />
                     </Control>
                 </FieldControl>
-                <FieldControl Label="Phone number" CssClassDiv="py-2 col-md-6">
+                <FieldControl Label="Phone number">
                     <Control>
                         <InputText id="phonenumber" class="form-control" placeholder="Phone number" @bind-Value="this.SelectItem.PHONENUMBER" />
                         <ValidationMessage For="@(()=>this.SelectItem.PHONENUMBER)" />
@@ -65,7 +64,7 @@
             </div>
 
             <div class="row">
-                <FieldControl Label="Permissions" CssClassDiv="py-2 col-md-6">
+                <FieldControl Label="Permissions">
                     <Control>
                         <InputSelect class="form-select" @bind-Value="@this.SelectItem.RESPONSIBILITY_ID">
                             <DictionaryControl Code="METAFRM_MGMT.RESPONSIBILITY" Items="this.ResponsibilityItems" ResultEvent="this.OnResultEventResponsibilityItems" AppendEmptyItem="true">
@@ -85,10 +84,10 @@
 
             <FieldControl Label="Inactive" CssClassControl="row">
                 <Control>
-                    <div class="py-1 col-md-3">
+                    <div class="py-1 col-lg-6">
                         <InputDate id="inactivedate" class="form-control" placeholder="Inactive Date" Type="InputDateType.Date" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="yyyy-MM-dd" />
                     </div>
-                    <div class="py-1 col-md-3">
+                    <div class="py-1 col-lg-6">
                         <InputDate id="inactivetime" class="form-control" placeholder="Inactive Time" Type="InputDateType.Time" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="HH:mm" />
                     </div>
                     <ValidationMessage For="@(()=>this.SelectItem.INACTIVE_DATE)" />
