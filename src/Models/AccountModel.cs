@@ -17,7 +17,7 @@ namespace MetaFrm.Management.Razor.Models
         /// </summary>
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "이메일")]
         public string? EMAIL { get; set; }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace MetaFrm.Management.Razor.Models
         /// </summary>
         [Required]
         [MinLength(3)]
-        [Display(Name = "Nickname")]
+        [Display(Name = "별명")]
         public string? NICKNAME { get; set; }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace MetaFrm.Management.Razor.Models
         /// </summary>
         [Required]
         [MinLength(3)]
-        [Display(Name = "Fullname")]
+        [Display(Name = "성명")]
         public string? FULLNAME { get; set; }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace MetaFrm.Management.Razor.Models
         /// </summary>
         [Required]
         [MinLength(6)]
-        [Display(Name = "Phone number")]
+        [Display(Name = "전화번호")]
         public string? PHONENUMBER { get; set; }
 
         /// <summary>
@@ -53,13 +53,13 @@ namespace MetaFrm.Management.Razor.Models
         /// RESPONSIBILITY_NAME
         /// </summary>
         [Required]
-        [Display(Name = "Permissions")]
+        [Display(Name = "권한")]
         public string? RESPONSIBILITY_NAME { get; set; }
 
         /// <summary>
         /// INACTIVE_DATE
         /// </summary>
-        [Display(Name = "Inactive date")]
+        [Display(Name = "비활성")]
         public DateTime? INACTIVE_DATE { get; set; } = DateTime.Now.AddYears(100);
     }
 }
