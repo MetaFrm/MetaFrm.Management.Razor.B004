@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.4.32804.182
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11304.174 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaFrm.Management.Razor.B004(net6.0)", "MetaFrm.Management.Razor.B004(net6.0)\MetaFrm.Management.Razor.B004(net6.0).csproj", "{4C4B17DD-C3E9-4FC6-9537-C67113F51DF5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{F729085D-3163-4CEB-92AA-8280026F8B09}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -35,16 +33,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\build.yml = .github\workflows\build.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaFrm.Management.Razor.B004(net10.0)", "MetaFrm.Management.Razor.B004(net10.0)\MetaFrm.Management.Razor.B004(net10.0).csproj", "{D9A5BD4B-A9A3-DDBD-A6BD-321036C435A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4C4B17DD-C3E9-4FC6-9537-C67113F51DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C4B17DD-C3E9-4FC6-9537-C67113F51DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C4B17DD-C3E9-4FC6-9537-C67113F51DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C4B17DD-C3E9-4FC6-9537-C67113F51DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9A5BD4B-A9A3-DDBD-A6BD-321036C435A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9A5BD4B-A9A3-DDBD-A6BD-321036C435A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9A5BD4B-A9A3-DDBD-A6BD-321036C435A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A5BD4B-A9A3-DDBD-A6BD-321036C435A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
